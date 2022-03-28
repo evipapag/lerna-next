@@ -1,0 +1,58 @@
+{
+  "name": "@pm/cards",
+  "version": "0.0.0",
+  "description": "MaterialUI card components",
+  "license": "UNLICENSED",
+  "sideEffects": false,
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "src": "src/index.ts",
+  "types": "dist/types/index.d.ts",
+  "typings": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.internal.upstreamsystems.com:GUI/ui-kit.git"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "start": "yarn build",
+    "start2": "nodemon --watch src --exec yarn build -e ts,tsx",
+    "build": "concurrently yarn:build:*",
+    "test": "jest --env=jsdom --passWithNoTests",
+    "lint": "concurrently yarn:lint:*",
+    "version": "yarn build",
+    "build:esm": "cross-env BABEL_ENV=esm babel src --root-mode upward --extensions .ts,.tsx -d dist/esm --source-maps",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --root-mode upward --extensions .ts,.tsx -d dist/cjs --source-maps",
+    "build:types": "tsc --emitDeclarationOnly --declaration --declarationDir dist/types",
+    "test:cov": "yarn test --coverage",
+    "lint:src": "eslint src --ext .ts,.tsx --config ../../.eslintrc",
+    "lint:types": "tsc --noEmit"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@types/styled-components": "^5.1.9",
+    "react": "^17.0.2",
+    "react-intl": "^5.17.1",
+    "styled-components": "^5.2.3"
+  },
+  "peerDependencies": {
+    "@material-ui/core": ">=4.9.5",
+    "react": ">=16.8.6",
+    "react-intl": ">=5.10.1",
+    "styled-components": ">=5.0.0"
+  }
+}
